@@ -1,23 +1,21 @@
 import unittest
+import json
+import os
+
 
 class TestStringMethods(unittest.TestCase):
 
     def test_sample(self):
         print("test_sample...")
-        self.assertEqual('foo'.upper(), 'FOO')
+        os.system(
+            'python sde-test-solution.py sample_input_2.json sample_output_2.json')
+        with open("./sample_output_2_expected.json", 'r') as file:
+            expected_dict = json.load(file)
+        with open("./sample_output_2.json", 'r') as file:
+            output_dict = json.load(file)
+        self.assertEqual(expected_dict, output_dict,
+                         msg="the app cannot break the tie of tenor_diff")
 
-    def test_isupper(self):
-        print("test_isupper")
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('Foo'.isupper())
-
-    def itest_split(self):
-        print("test_split")
-        s = 'hello world'
-        self.assertEqual(s.split(), ['hello', 'world'])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
 
 if __name__ == '__main__':
 
